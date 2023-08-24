@@ -20,9 +20,9 @@ This toolkit contains various scripts for performing data analysis tasks. It inc
 
 2. Install the required dependencies. You can use a virtual environment to manage dependencies:
 ## Requirements
-To ensure that you have the necessary dependencies for this project, you can use the provided `requirements.txt` file. This file contains a list of packages and their versions required to run the toolkit. You can install them using the following command within your activated virtual environment:
+To ensure that you have the necessary dependencies for this project, you can use the provided `environment.yml` file. This file contains a list of packages and their versions required to run the toolkit. You can install them using the following command within your activated virtual environment:
 
-`pip install -r requirements.txt`
+`conda env create -f environment.yml`
 
 ## Usage
 The toolkit offers both programmatic usage and a Command-Line Interface (CLI) for generating reports and visualizations.
@@ -30,6 +30,7 @@ The toolkit offers both programmatic usage and a Command-Line Interface (CLI) fo
 - [data_analyzer.py](data_analyzer.py): Provides data analysis and preprocessing methods.
 - [report_generator.py](report_generator.py): Generates PDF reports summarizing analysis results.
 - [helper.py](helper.py): Helper functions for various tasks.
+- [example_test.ipynb](example_test.ipynb): notebook for demonstration on example.
 
 
 

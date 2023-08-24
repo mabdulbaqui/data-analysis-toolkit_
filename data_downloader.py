@@ -3,10 +3,11 @@ import kaggle
 import pandas as pd
 import sqlite3
 import os
+from helper import create_directory
 
 
 def download_dataset(pattern="international", dataset_name="parulpandey/us-international-air-traffic-data",
-                     destination_directory="."):
+                     destination_directory="./Data"):
     """
     Download a dataset from Kaggle.
 
@@ -18,7 +19,8 @@ def download_dataset(pattern="international", dataset_name="parulpandey/us-inter
     Returns:
     None
     """
-    files_with_pattern = [file for file in os.listdir() if pattern in file.lower()]
+    create_directory(destination_directory)
+    files_with_pattern = [file for file in os.listdir(destination_directory) if pattern in file.lower()]
 
     if files_with_pattern:
         print(f"File with '{pattern}' in its name already exists.")
@@ -27,8 +29,18 @@ def download_dataset(pattern="international", dataset_name="parulpandey/us-inter
             # Download the dataset using Kaggle API
             kaggle.api.dataset_download_files(dataset_name, path=destination_directory, unzip=True)
             print("Dataset downloaded successfully.")
+
+            # Get the name of the downloaded zip file
+            zip_file_name = [file for file in os.listdir(destination_directory) if file.endswith('.zip')][0]
+
+            # Unzip the downloaded file
+            os.system(f'unzip {os.path.join(destination_directory, zip_file_name)} -d {destination_directory}')
+
+            # Remove the zipped file
+            os.remove(os.path.join(destination_directory, zip_file_name))
+            print("Zipped file removed.")
         except Exception as e:
-            print(f"Error occurred while downloading the dataset: {e}")
+            print(f"Error occurred while downloading and processing the dataset: {e}")
 
 
 def extract_source_type(string):
@@ -113,3 +125,25 @@ def download_example():
     # Read the first CSV file into a DataFrame
     df, name = read_file_to_dataframe(csv_files[0])
     return df, name
+
+
+def read_example_files(destination_directory="./Data"):
+    """
+    Download a dataset, find a CSV file, and read it into a DataFrame.
+
+    Returns:
+    list of pandas.DataFrame or None: List of DataFrames containing data from the CSV files or None if an error occurred.
+    """
+    # Download the dataset
+    download_dataset()
+
+    # Get the list of all files in the destination directory
+    files_in_destination_directory = [file for file in os.listdir(destination_directory) if
+                                      os.path.isfile(os.path.join(destination_directory, file))]
+
+    # Find the CSV files in the destination directory
+    csv_files = [file for file in files_in_destination_directory if file.lower().endswith('.csv')]
+
+    return[os.path.join(destination_directory, csv_file) for csv_file in csv_files]
+
+

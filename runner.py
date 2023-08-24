@@ -13,7 +13,7 @@ def run_example_pdf_visu(df=None, name=None):
     data_visualization = DataVisualization(df)
 
     # Define the PDF filename
-    pdf_filename = f"eda_report_graphs_{name}.pdf" if name is not None else "eda_report_graphs.pdf"
+    pdf_filename = f"Report/eda_report_graphs_{name}.pdf" if name is not None else "eda_report_graphs.pdf"
     doc = SimpleDocTemplate(pdf_filename, pagesize=A4)
     elements = []
 
@@ -41,7 +41,7 @@ def run_example_pdf_visu(df=None, name=None):
 def run_example_pdf_summary(df=None, name=None):
     analyzer = DataAnalyzer(df)
 
-    pdf_filename = f"eda_report_summary_{name}.pdf" if name is not None else "eda_report_summary.pdf"
+    pdf_filename = f"Report/eda_report_summary_{name}.pdf" if name is not None else "eda_report_summary.pdf"
 
     report = ReportGenerator(pdf_filename)
 

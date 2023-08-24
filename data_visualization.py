@@ -225,7 +225,6 @@ class DataVisualization:
         for column in self.categorical_columns:
             x = self.plot_categorical_count(df, column, save, fig_ax)
             imgs_dir.append(x)
-        print(imgs_dir)
 
         return imgs_dir
 
@@ -278,7 +277,6 @@ class DataVisualization:
         list: List of image paths if saved, else an empty list.
         """
 
-        print(df.describe())
         imgs_dir = []
         for column in self.numerical_columns:
             x = self.plot_boxplot(df, column, save, fig_ax)

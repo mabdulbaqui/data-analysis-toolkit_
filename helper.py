@@ -1,6 +1,15 @@
+import os
 import re
 
 import pandas as pd
+
+
+def create_directory(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+        print(f"Directory '{path}' created.")
+    else:
+        print(f"Directory '{path}' already exists.")
 
 
 class DataPreprocessor:
@@ -24,6 +33,7 @@ class DataPreprocessor:
         if cls._instance is None:
             cls._instance = super(DataPreprocessor, cls).__new__(cls)
             cls._instance._preprocess_data(df)
+            create_directory("Report")
 
             if info:
                 cls._instance._print_column_info()

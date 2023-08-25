@@ -17,32 +17,13 @@ class DataPreprocessor:
     Data preprocessor class to preprocess DataFrame columns.
     """
 
-    _instance = None
-
-    def __new__(cls, df, info=True):
-        """
-        Create a new instance of DataPreprocessor if it doesn't exist.
-
-        Parameters:
-        df (pd.DataFrame): Input DataFrame.
-        info (bool): Whether to print column info.
-
-        Returns:
-        DataPreprocessor instance.
-        """
-        if cls._instance is None:
-            cls._instance = super(DataPreprocessor, cls).__new__(cls)
-            cls._instance._preprocess_data(df)
-            create_directory("Report")
-
-            if info:
-                cls._instance._print_column_info()
-
-            cls._instance.initialized = True  # Set initialized attribute here
-        return cls._instance
+    def __init__(self, df, info=True):
+        self._preprocess_data(df)
+        if info:
+            self._print_column_info()
+        create_directory("Report")
 
     def _preprocess_data(self, df):
-
         """
         Preprocess data to identify numerical, categorical, and datetime columns.
 
